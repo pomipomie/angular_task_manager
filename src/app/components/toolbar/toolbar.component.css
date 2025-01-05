@@ -1,0 +1,30 @@
+mat-toolbar {
+  max-width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: fit-content;
+}
+
+.title {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+button[mat-button] {
+  font-family: "Nunito Sans", sans-serif;
+  padding: 0.15em;
+  min-width: 4em;
+  line-height: normal;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+}

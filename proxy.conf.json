@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "https://express-task-manager.onrender.com/",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}

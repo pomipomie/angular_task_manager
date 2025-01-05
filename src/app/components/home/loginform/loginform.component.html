@@ -1,0 +1,16 @@
+<form class="auth-form" [formGroup]="logInForm" (ngSubmit)="login()">
+  <h2>Please Log In</h2>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput required formControlName="email" type="email">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput required formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button" aria-label="Toggle password visibility"> 
+      <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon> 
+    </button>
+  </mat-form-field>
+  <button mat-flat-button type="submit">Log In</button>
+  <p class="last-line">Don't have an account? <a routerLink="/signup">Create one</a></p>
+</form>

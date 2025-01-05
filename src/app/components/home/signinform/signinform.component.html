@@ -1,0 +1,28 @@
+<form class="auth-form" [formGroup]="signUpForm" (ngSubmit)="signUp()">
+<h2>Create a new account</h2>
+<mat-form-field class="form-field">
+  <mat-label class="form-label">First Name</mat-label>
+  <input matInput required class="form-input" formControlName="firstName">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Last Name</mat-label>
+  <input matInput required formControlName="lastName">
+</mat-form-field>
+<mat-form-field>
+  <mat-label >Username</mat-label>
+  <input matInput required formControlName="username">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Email</mat-label>
+  <input matInput required formControlName="email" type="email">
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Password</mat-label>
+  <input matInput required formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+  <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button" aria-label="Toggle password visibility"> 
+    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon> 
+  </button>
+</mat-form-field>
+<button mat-flat-button type="submit">Sign Up</button>
+<p class="last-line">Already have an account? <a routerLink="/login">Log In</a></p>
+</form>

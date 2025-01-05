@@ -1,0 +1,16 @@
+<mat-toolbar>
+  <button mat-icon-button aria-label="open menu" (click)="toggleOpenState()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1 class="title">{{title}}</h1>
+  <span class="spacer"></span>
+  <div class="flex">
+    @if (isLoggedIn()) {
+      <button mat-button color="accent" (click)="onLogOut()">Log Out</button>
+    } @else {
+      <button mat-button color="accent" (click)="onLogIn()">Log In</button>
+    }
+
+    <button mat-button>About</button>
+  </div>
+</mat-toolbar>
