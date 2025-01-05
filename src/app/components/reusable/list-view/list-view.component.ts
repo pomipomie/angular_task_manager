@@ -1,53 +1,44 @@
-import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  Signal,
+  ViewChild,
+  effect,
+  inject,
+} from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { FiltersComponent } from '../filters/filters.component';
-
-//mock table data source
-const ELEMENT_DATA = [
-  {
-    name: 'project 1',
-    description: 'this is the project',
-    users: ['123455666'],
-    state: 'pending',
-    dueDate: '1/4/2025',
-  },
-  {
-    name: 'project 2',
-    description: 'this is the project2',
-    users: ['123455666'],
-    status: 'pending',
-    dueDate: '1/4/2025',
-  },
-  {
-    name: 'project 3',
-    description: 'this is the 3rd project',
-    users: ['123455666'],
-    status: 'pending',
-    dueDate: '1/4/2025',
-  },
-];
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-view',
-  imports: [MatTableModule, MatSortModule, FiltersComponent],
+  imports: [MatTableModule, MatSortModule, FiltersComponent, TitleCasePipe],
   templateUrl: './list-view.component.html',
   styleUrl: './list-view.component.css',
 })
 export class ListViewComponent implements AfterViewInit {
   private _liveAnnouncer = inject(LiveAnnouncer);
 
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-  displayedColumns: string[] = [
-    'name',
-    'description',
-    'users',
-    'status',
-    'dueDate',
-  ];
+  @Input() data!: Signal<any>;
+  dataSource = new MatTableDataSource<any[]>([]);
+  displayedColumns: string[] = [];
 
   @ViewChild(MatSort) sort!: MatSort;
+
+  constructor() {
+    // Effect to react to signal changes
+    effect(() => {
+      const updatedData = this.data();
+      console.log('updated', updatedData);
+      this.dataSource.data = updatedData; // Update MatTableDataSource data
+      this.displayedColumns = Object.keys(updatedData[0]).filter(
+        (key) => key !== 'createdAt' && key !== 'updatedAt' && key !== 'id'
+      );
+    });
+  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -60,5 +51,10 @@ export class ListViewComponent implements AfterViewInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  onClick() {
+    console.log('data', this.data());
+    console.log('source', this.dataSource);
   }
 }

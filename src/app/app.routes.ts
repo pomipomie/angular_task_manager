@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 import { SigninformComponent } from './components/home/signinform/signinform.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginformComponent } from './components/home/loginform/loginform.component';
-import { TabsComponent } from './components/reusable/tabs/tabs.component';
 import { authGuard } from './guards/auth.guard';
+import { ProjectsComponent } from './components/projects/projects.component';
 
 export const routes: Routes = [
   {
@@ -24,7 +24,7 @@ export const routes: Routes = [
       // { path: 'dashboard', component: DashboardComponent },
       {
         path: 'projects',
-        component: TabsComponent,
+        component: ProjectsComponent,
         canActivate: [authGuard],
       },
       // { path: 'tasks', component: TasksComponent },
