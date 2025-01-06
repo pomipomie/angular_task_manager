@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   Signal,
   ViewChild,
@@ -16,6 +17,7 @@ import { TitleCasePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { ProjectService } from '../../../services/project.service';
 
 @Component({
   selector: 'app-list-view',
@@ -29,7 +31,7 @@ import { Router } from '@angular/router';
   templateUrl: './list-view.component.html',
   styleUrl: './list-view.component.css',
 })
-export class ListViewComponent implements AfterViewInit {
+export class ListViewComponent implements OnInit, AfterViewInit {
   private _liveAnnouncer = inject(LiveAnnouncer);
 
   @Input() data!: Signal<any>;
@@ -39,11 +41,12 @@ export class ListViewComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @Output() onDelete = new EventEmitter<string>();
 
-  constructor(private router: Router) {
+  projectMap: { [id: string]: string } = {};
+
+  constructor(private router: Router, private projectService: ProjectService) {
     // Effect to react to signal changes
     effect(() => {
       const updatedData = this.data();
-      console.log('updated', updatedData);
       this.dataSource.data = updatedData; // Update MatTableDataSource data
       this.displayedColumns = Object.keys(updatedData[0]).filter(
         (key) =>
@@ -54,6 +57,10 @@ export class ListViewComponent implements AfterViewInit {
       );
       this.displayedColumns = [...this.displayedColumns, 'Due Date', 'Actions'];
     });
+  }
+
+  ngOnInit() {
+    this.loadProjects();
   }
 
   ngAfterViewInit() {
@@ -78,5 +85,25 @@ export class ListViewComponent implements AfterViewInit {
       console.log(id);
       this.onDelete.emit(id);
     }
+  }
+
+  loadProjects() {
+    this.projectService.getAllProjects(
+      (projects) => {
+        this.projectMap = projects.reduce(
+          (
+            map: {
+              [id: string]: string;
+            },
+            project
+          ) => {
+            map[project.id] = project.name;
+            return map;
+          },
+          {}
+        );
+      },
+      (error) => console.error('Failed to fetch projects', error)
+    );
   }
 }
