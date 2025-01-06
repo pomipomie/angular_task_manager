@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ApiService } from './api.service';
-import { Project } from '../utils/project.interface';
+import { Project, ProjectPayload } from '../utils/project.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +25,38 @@ export class ProjectService {
       .subscribe({
         next: (response) => callback(response.results),
         error: (err) => errorCallback(err),
+      });
+  }
+
+  createProject(payload: ProjectPayload) {
+    return this.http
+      .post(this.apiConfig.getApiUrl(`${this.apiPath}/new`), payload)
+      .subscribe({
+        next: (response) => {
+          console.log('Project created successfully:', response);
+          alert('Project created successfully');
+        },
+        error: (err) => {
+          console.log('Project creation failed', err);
+          alert('Project creation failed');
+        },
+      });
+  }
+
+  updateProject(payload: ProjectPayload) {}
+
+  deleteProject(projectId: string) {
+    return this.http
+      .delete(this.apiConfig.getApiUrl(`${this.apiPath}/delete/${projectId}`))
+      .subscribe({
+        next: (response) => {
+          console.log('Project deleted successfully:', response);
+          alert('Project deleted successfully');
+        },
+        error: (err) => {
+          console.log('Project deletion failed', err);
+          alert('Project deletion failed');
+        },
       });
   }
 }

@@ -1,7 +1,9 @@
 import {
   AfterViewInit,
   Component,
+  EventEmitter,
   Input,
+  Output,
   Signal,
   ViewChild,
   effect,
@@ -10,12 +12,19 @@ import {
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { FiltersComponent } from '../filters/filters.component';
 import { TitleCasePipe } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-list-view',
-  imports: [MatTableModule, MatSortModule, FiltersComponent, TitleCasePipe],
+  imports: [
+    MatTableModule,
+    MatSortModule,
+    TitleCasePipe,
+    MatIconModule,
+    MatButtonModule,
+  ],
   templateUrl: './list-view.component.html',
   styleUrl: './list-view.component.css',
 })
@@ -27,6 +36,7 @@ export class ListViewComponent implements AfterViewInit {
   displayedColumns: string[] = [];
 
   @ViewChild(MatSort) sort!: MatSort;
+  @Output() onDelete = new EventEmitter<string>();
 
   constructor() {
     // Effect to react to signal changes
@@ -35,8 +45,13 @@ export class ListViewComponent implements AfterViewInit {
       console.log('updated', updatedData);
       this.dataSource.data = updatedData; // Update MatTableDataSource data
       this.displayedColumns = Object.keys(updatedData[0]).filter(
-        (key) => key !== 'createdAt' && key !== 'updatedAt' && key !== 'id'
+        (key) =>
+          key !== 'createdAt' &&
+          key !== 'updatedAt' &&
+          key !== 'id' &&
+          key !== 'dueDate'
       );
+      this.displayedColumns = [...this.displayedColumns, 'Due Date', 'Actions'];
     });
   }
 
@@ -53,8 +68,12 @@ export class ListViewComponent implements AfterViewInit {
     }
   }
 
-  onClick() {
-    console.log('data', this.data());
-    console.log('source', this.dataSource);
+  onEdit(id: string) {}
+
+  onDeleteItem(id: string) {
+    if (id) {
+      console.log(id);
+      this.onDelete.emit(id);
+    }
   }
 }

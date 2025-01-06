@@ -1,5 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
 
 import { routes } from './app.routes';
 import {
@@ -13,6 +14,7 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { jwtInterceptor } from './interceptors/jwt.interceptor';
+import { MatNativeDateModule } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,5 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
     provideHttpClient(withFetch(), withInterceptors([jwtInterceptor])),
+    ...provideDateFnsAdapter(),
+    MatNativeDateModule,
   ],
 };

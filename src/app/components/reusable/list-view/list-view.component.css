@@ -1,20 +1,6 @@
-.listview-container {
-  padding: 2vh 2vw;
-  margin-top: 1em;
-  background-color: var(--mat-sys-background);
-  border-radius: 10px;
-}
-
-.filter-container {
-  padding: 2vh 2vw;
-  border: 1.5px solid var(--mat-sys-primary);
-  border-radius: 10px;
-  background-color: var(--mat-sys-surface-container-low);
-  margin-bottom: 1em;
-}
-
 .table-container {
   overflow-x: auto;
+  border-radius: 10px;
 }
 
 .mat-mdc-cell {

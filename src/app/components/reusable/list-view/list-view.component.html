@@ -1,20 +1,22 @@
-<div class="listview-container">
-  <div class="filter-container">
-    <app-filters></app-filters>
-  </div>
-  <div class="table-container">
-    <table mat-table [dataSource]="dataSource" matSort>
-        @for (column of displayedColumns; track column+1) {
-          <ng-container [matColumnDef]="column">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by {{column}}">
-              {{column | titlecase }}
-            </th>
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" matSort>
+      @for (column of displayedColumns; track column+1) {
+        <ng-container [matColumnDef]="column">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by {{column}}">
+            {{column | titlecase }}
+          </th>
+          @if (column === 'Actions') {
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="onEdit(element.id)"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button color="warn" (click)="onDeleteItem(element.id)"><mat-icon>delete</mat-icon></button>
+            </td>
+          } @else {
             <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-          </ng-container>
-        }
-    
-      <tr mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </div>
+          }
+        </ng-container>
+      }
+  
+    <tr mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>
