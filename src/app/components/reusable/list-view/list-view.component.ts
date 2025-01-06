@@ -77,7 +77,11 @@ export class ListViewComponent implements OnInit, AfterViewInit {
   }
 
   onEdit(id: string) {
-    this.router.navigate([`projects/update/${id}`]);
+    this.router.navigate([
+      `${
+        this.displayedColumns.includes('project') ? 'tasks' : 'projects'
+      }/update/${id}`,
+    ]);
   }
 
   onDeleteItem(id: string) {
