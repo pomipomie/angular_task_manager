@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginformComponent } from './loginform.component';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 describe('LoginformComponent', () => {
   let component: LoginformComponent;
@@ -8,9 +13,9 @@ describe('LoginformComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginformComponent]
-    })
-    .compileComponents();
+      imports: [LoginformComponent],
+      providers: [provideHttpClient(withInterceptorsFromDi()), ActivatedRoute],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LoginformComponent);
     component = fixture.componentInstance;

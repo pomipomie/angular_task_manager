@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { KanbanViewComponent } from './kanban-view.component';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 describe('KanbanViewComponent', () => {
   let component: KanbanViewComponent;
@@ -8,9 +12,9 @@ describe('KanbanViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [KanbanViewComponent]
-    })
-    .compileComponents();
+      imports: [KanbanViewComponent],
+      providers: [provideHttpClient(withInterceptorsFromDi())],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(KanbanViewComponent);
     component = fixture.componentInstance;

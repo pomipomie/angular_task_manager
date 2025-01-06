@@ -8,6 +8,7 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideHttpClient,
   withFetch,
@@ -22,6 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
+    provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([jwtInterceptor])),
     ...provideDateFnsAdapter(),
     MatNativeDateModule,
