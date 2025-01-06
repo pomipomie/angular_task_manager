@@ -1,0 +1,6 @@
+{
+  "hosting": {
+    "public": "dist/angular_taskmanager/browser",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}
