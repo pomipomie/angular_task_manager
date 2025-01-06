@@ -28,6 +28,21 @@ export class ProjectService {
       });
   }
 
+  getProjectById(
+    projectId: string,
+    callback: (project: Project) => void,
+    errorCallback: (error: any) => void
+  ) {
+    this.http
+      .get<{ project: Project }>(
+        this.apiConfig.getApiUrl(`${this.apiPath}/id/${projectId}`)
+      )
+      .subscribe({
+        next: (response) => callback(response.project),
+        error: (err) => errorCallback(err),
+      });
+  }
+
   createProject(payload: ProjectPayload) {
     return this.http
       .post(this.apiConfig.getApiUrl(`${this.apiPath}/new`), payload)
@@ -43,7 +58,19 @@ export class ProjectService {
       });
   }
 
-  updateProject(payload: ProjectPayload) {}
+  updateProject(
+    id: string,
+    payload: ProjectPayload,
+    callback: (response: any) => void,
+    errorCallback: (error: any) => void
+  ) {
+    this.http
+      .put(this.apiConfig.getApiUrl(`${this.apiPath}/update/${id}`), payload)
+      .subscribe({
+        next: (response) => callback(response),
+        error: (err) => errorCallback(err),
+      });
+  }
 
   deleteProject(projectId: string) {
     return this.http

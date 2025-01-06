@@ -12,3 +12,10 @@ export interface Task {
   status: taskStatus;
   dueDate: Date;
 }
+
+export type TaskPayload = Omit<
+  Project,
+  'createdAt' | 'updatedAt' | 'id' | 'users' | 'project' | 'dueDate'
+> & {
+  dueDate: Date | string;
+};

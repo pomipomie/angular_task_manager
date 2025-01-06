@@ -5,6 +5,7 @@ import { LoginformComponent } from './components/home/loginform/loginform.compon
 import { authGuard } from './guards/auth.guard';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { CreateComponent } from './components/projects/create/create.component';
+import { UpdateProjectComponent } from './components/projects/update-project/update-project.component';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,11 @@ export const routes: Routes = [
       {
         path: 'projects/create',
         component: CreateComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'projects/update/:id',
+        component: UpdateProjectComponent,
         canActivate: [authGuard],
       },
       // { path: 'tasks', component: TasksComponent },

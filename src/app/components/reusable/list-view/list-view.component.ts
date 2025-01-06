@@ -15,6 +15,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { TitleCasePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-view',
@@ -38,7 +39,7 @@ export class ListViewComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @Output() onDelete = new EventEmitter<string>();
 
-  constructor() {
+  constructor(private router: Router) {
     // Effect to react to signal changes
     effect(() => {
       const updatedData = this.data();
@@ -68,7 +69,9 @@ export class ListViewComponent implements AfterViewInit {
     }
   }
 
-  onEdit(id: string) {}
+  onEdit(id: string) {
+    this.router.navigate([`projects/update/${id}`]);
+  }
 
   onDeleteItem(id: string) {
     if (id) {
