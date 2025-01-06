@@ -15,7 +15,7 @@ export interface Task {
 
 export type TaskPayload = Omit<
   Project,
-  'createdAt' | 'updatedAt' | 'id' | 'users' | 'project' | 'dueDate'
+  'createdAt' | 'updatedAt' | 'id' | 'users' | 'dueDate'
 > & {
   dueDate: Date | string;
 };

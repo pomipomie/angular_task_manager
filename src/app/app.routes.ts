@@ -6,6 +6,9 @@ import { authGuard } from './guards/auth.guard';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { CreateComponent } from './components/projects/create/create.component';
 import { UpdateProjectComponent } from './components/projects/update-project/update-project.component';
+import { TasksComponent } from './components/tasks/tasks.component';
+import { CreateTaskComponent } from './components/tasks/create-task/create-task.component';
+import { UpdateTaskComponent } from './components/tasks/update-task/update-task.component';
 
 export const routes: Routes = [
   {
@@ -39,7 +42,21 @@ export const routes: Routes = [
         component: UpdateProjectComponent,
         canActivate: [authGuard],
       },
-      // { path: 'tasks', component: TasksComponent },
+      {
+        path: 'tasks',
+        component: TasksComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'tasks/create',
+        component: CreateTaskComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'tasks/update/:id',
+        component: UpdateTaskComponent,
+        canActivate: [authGuard],
+      },
       // { path: 'settings', component: SettingsComponent },
     ],
   },

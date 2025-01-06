@@ -1,0 +1,21 @@
+.table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+}
+
+.mat-mdc-cell {
+  max-width: 250px;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  text-align: left;
+}
+
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
+  padding: 0 8px;
+}
+
+.mat-row {
+  height: auto;
+}

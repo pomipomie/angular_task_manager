@@ -1,0 +1,41 @@
+<div class="button-container">
+  <button mat-button type="button" (click)="onGoBack()">
+    <mat-icon>arrow_back</mat-icon>
+    Go back to Tasks
+  </button>
+</div>
+<form class="auth-form" [formGroup]="createForm" (ngSubmit)="createTask()">
+  <h2>Create a new task</h2>
+  <mat-form-field class="form-field">
+    <mat-label class="form-label">Name</mat-label>
+    <input matInput required class="form-input" formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput required formControlName="description">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label >Status</mat-label>
+    <mat-select formControlName="status">
+      @for (option of statusOptions; track option+1) {
+        <mat-option [value]="option">{{option}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label >Project</mat-label>
+    <mat-select formControlName="project">
+      @for (project of projects; track project.id) {
+        <mat-option [value]="project.id">{{project.name}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Due Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="dueDate">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <button mat-flat-button type="submit">Create</button>
+  </form>

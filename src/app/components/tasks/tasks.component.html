@@ -1,0 +1,12 @@
+<mat-tab-group>
+  <mat-tab label="List">
+    <div class="buttons-container">
+      <button mat-fab extended type="button" (click)="onCreate()">Create new Task</button>
+    </div>
+    <div class="filter-container">
+      <app-filters></app-filters>
+    </div>
+    <app-list-view [data]="data" (onDelete)="onDelete($event)" ></app-list-view>
+  </mat-tab>
+  <mat-tab label="Kanban"> <app-kanban-view></app-kanban-view> </mat-tab>
+</mat-tab-group>
