@@ -12,3 +12,10 @@ body {
   background-color: var(--bg);
   height: 100%;
 }
+
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}

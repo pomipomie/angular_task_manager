@@ -4,6 +4,7 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeComponent } from '../home/home.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,6 +14,7 @@ import { HomeComponent } from '../home/home.component';
     MatButtonModule,
     MatIconModule,
     HomeComponent,
+    RouterLink,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
